@@ -24,7 +24,6 @@ public class DynamicHeightNetworkImageView extends NetworkImageView {
         mAspectRatio = aspectRatio;
         requestLayout();
     }
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
