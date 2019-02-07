@@ -31,6 +31,7 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.bumptech.glide.Glide;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 
@@ -233,7 +234,7 @@ public class ArticleDetailFragment extends Fragment implements
 
             }
             bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY).replaceAll("(\r\n|\n)", "<br />")));
-            ImageLoaderHelper.getInstance(getActivity()).getImageLoader()
+         /*   ImageLoaderHelper.getInstance(getActivity()).getImageLoader()
                     .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL), new ImageLoader.ImageListener() {
                         @Override
                         public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
@@ -252,7 +253,12 @@ public class ArticleDetailFragment extends Fragment implements
                         public void onErrorResponse(VolleyError volleyError) {
 
                         }
-                    });
+                    });   */
+            try {
+                Bitmap imageBitmap = Glide.with(getActivity()).load(mCursor.getString(ArticleLoader.Query.PHOTO_URL)).asBitmap().listener(new GlideLoaderListener<String, Bitmap>(getActivity(), R.drawable.no_image, mPhotoView, mMutedColor, mRootView.findViewById(R.id.meta_bar))).into(-1, -1).get();
+            } catch (Exception ex) {
+
+            }
         } else {
             mRootView.setVisibility(View.GONE);
             titleView.setText("N/A");
